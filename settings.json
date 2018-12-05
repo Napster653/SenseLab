@@ -1,0 +1,31 @@
+{
+	"editor.minimap.enabled": true,
+	"git.ignoreMissingGitWarning": true,
+	"window.zoomLevel": 0,
+	"editor.multiCursorModifier": "ctrlCmd",
+	"html.format.wrapLineLength": 0,
+	"javascript.format.insertSpaceAfterConstructor": true,
+	"javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+	"javascript.format.placeOpenBraceOnNewLineForControlBlocks": true,
+	"javascript.format.placeOpenBraceOnNewLineForFunctions": true,
+	"explorer.confirmDelete": false,
+	"editor.renderWhitespace": "all",
+	"editor.detectIndentation": false,
+	"editor.insertSpaces": false,
+	"[python]": {
+		"editor.insertSpaces": true,
+		"editor.tabSize": 4
+	},
+	"python.formatting.autopep8Args": [
+		"--max-line-length",
+		"200",
+		"--experimental"
+	],
+	"python.linting.pep8Args": [
+		"--max-line-length",
+		"200",
+		"--experimental"
+	],
+	"workbench.colorTheme": "Monokai",
+	"terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe"
+}
