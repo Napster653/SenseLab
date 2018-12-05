@@ -16,6 +16,26 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+$(document).ready(function(){
+
+    $('#trigger').hide();
+    $('#panel').hide();
+
+    $(document).on("click","#opcion1",function(){
+        $('#panel').fadeOut(function(){
+            $('#trigger').fadeIn();
+        });
+    });
+
+    $(document).on("click","#opcion2",function(){
+        $('#trigger').fadeOut(function(){
+            $('#panel').fadeIn();
+        });
+    });
+}
+
+
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -44,3 +64,4 @@ var app = {
 };
 
 app.initialize();
+

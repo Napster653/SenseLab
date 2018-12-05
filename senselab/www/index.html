@@ -40,6 +40,9 @@
 	<link rel="stylesheet" type="text/css" href="css/index.css">
 	<title>SenseLab</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<meta charset="UTF-8"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 </head>
 
 <body>
@@ -52,14 +55,39 @@
 		<div class="navbar-collapse collapse" id="navbarsExample01">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active">
-					<a class="nav-link" href="#">New Trigger <span class="sr-only">(current)</span></a>
+					<a class="nav-link" href="#" id="opcion1">New Trigger <span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Control Panel</a>
+					<a class="nav-link" href="#" id="opcion2">Control Panel</a>
 				</li>
 			</ul>
 		</div>
 	</nav>
+
+	<div id="trigger" class="trigger">
+		<div class="dropdown">
+			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			  Dropdown button
+			</button>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+			  <a class="dropdown-item" href="#">Swipe</a>
+			  <a class="dropdown-item" href="#">Temperatura</a>
+			  <a class="dropdown-item" href="#">Boton</a>
+			  <a class="dropdown-item" href="#">Luminosidad</a>
+			  <a class="dropdown-item" href="#">Fecha/hora</a>
+			  <a class="dropdown-item" href="#">Fuerza</a>
+			  <a class="dropdown-item" href="#">Humedad</a>
+			  <a class="dropdown-item" href="#">Shake</a>
+			</div>
+		  </div>
+
+	</div>
+
+	<div id="panel" class="panel">
+
+
+	</div>
+
 	<script type="text/javascript" src="cordova.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
