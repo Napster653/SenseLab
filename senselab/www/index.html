@@ -37,59 +37,145 @@
 	<meta name="format-detection" content="telephone=no">
 	<meta name="msapplication-tap-highlight" content="no">
 	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-	<link rel="stylesheet" type="text/css" href="css/index.css">
-	<title>SenseLab</title>
+	<!-- <link rel="stylesheet" type="text/css" href="css/index.css"> -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-	<meta charset="UTF-8"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+	<meta charset="UTF-8" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<title>SenseLab</title>
 </head>
 
 <body>
-	<nav class="navbar navbar-dark bg-dark">
-		<a class="navbar-brand" href="#">SenseLab</a>
-		<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+	<nav class="navbar navbar-dark bg-dark navbar-expand-sm">
+		<a class="navbar-brand" href="index.html">SenseLab</a>
+
+		<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#NavDropdown">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
-		<div class="navbar-collapse collapse" id="navbarsExample01">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-					<a class="nav-link" href="#" id="opcion1">New Trigger <span class="sr-only">(current)</span></a>
+		<div class="navbar-collapse collapse" id="NavDropdown">
+			<ul class="nav navbar-nav mr-auto" id="myTab" role="tablist">
+				<li class="nav-item" data-toggle="collapse" data-target="#NavDropdown">
+					<a class="nav-link active" id="NewTriggerTab" data-toggle="tab" href="#NewTrigger" role="tab">New Trigger</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#" id="opcion2">Control Panel</a>
+				<li class="nav-item" data-toggle="collapse" data-target="#NavDropdown">
+					<a class="nav-link" id="ControlPanelTab" data-toggle="tab" href="#ControlPanel" role="tab">Control Panel</a>
 				</li>
 			</ul>
 		</div>
 	</nav>
 
-	<div id="trigger" class="trigger">
-		<div class="dropdown">
-			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			  Dropdown button
-			</button>
-			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-			  <a class="dropdown-item" href="#">Swipe</a>
-			  <a class="dropdown-item" href="#">Temperatura</a>
-			  <a class="dropdown-item" href="#">Boton</a>
-			  <a class="dropdown-item" href="#">Luminosidad</a>
-			  <a class="dropdown-item" href="#">Fecha/hora</a>
-			  <a class="dropdown-item" href="#">Fuerza</a>
-			  <a class="dropdown-item" href="#">Humedad</a>
-			  <a class="dropdown-item" href="#">Shake</a>
-			</div>
-		  </div>
+	<div class="tab-content" id="tabPrincipal">
+		<!-- START New Trigger Tab -->
+		<div class="tab-pane fade show active row w-100" id="NewTrigger" role="tabpanel">
+			<h1 class="col-12 text-center mt-2">New trigger</h1>
+			<form id="NewTriggerForm" action="/NewTrigger" method="POST" class="needs-validation col-10 mx-auto my-3">
+				<label for="TriggerType">
+					<h2>Trigger Type</h2>
+				</label>
+				<select name="TriggerType" class="form-control" id="TriggerType">
+					<option value="" style="display: none" disabled selected>Please choose...</option>
+					<option value="accelerometer">Accelerometer</option>
+					<option value="temperature">Temperature</option>
+					<option value="button">Button</option>
+					<option value="light">Light sensor</option>
+					<option value="datetime">Date/Time</option>
+					<option value="force" disabled>Force</option>
+					<option value="humidity" disabled>Humidity</option>
+				</select>
+				<div class="tab-content mt-3">
+					<div class="myCollapse collapse" id="trigger-accelerometer">
+						<h4>If the device is...</h4>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="accelerometerType" value="swipe" id="accelerometerTypeSwipe" required>
+							<label for="accelerometerTypeSwipe">
+								Swiped
+							</label>
+						</div>
+						<div class="form-check disabled">
+							<input class="form-check-input" type="radio" name="accelerometerType" value="shake" id="accelerometerTypeShake" required disabled>
+							<label for="accelerometerTypeShake">
+								Shaked
+							</label>
+						</div>
+					</div>
 
+					<div class="myCollapse collapse" id="trigger-temperature">
+						<h4>If the temperature goes...</h4>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="temperatureType" value="above" id="temperatureTypeAbove" required>
+							<label for="temperatureTypeAbove">
+								Above
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="temperatureType" value="below" id="temperatureTypeBelow" required>
+							<label for="temperatureTypeBelow">
+								Below
+							</label>
+						</div>
+						<input class="form-control" type="number" name="temperatureThreshold">
+					</div>
+
+					<div class="myCollapse collapse" id="trigger-button">
+						<h4>If the button is...</h4>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="buttonType" value="swipe" id="buttonTypePress" required>
+							<label for="buttonTypePress">
+								Pressed
+							</label>
+						</div>
+						<div class="form-check disabled">
+							<input class="form-check-input" type="radio" name="buttonType" value="shake" id="buttonTypeHold" required>
+							<label for="buttonTypeHold">
+								Held (1sec)
+							</label>
+						</div>
+					</div>
+
+					<div class="myCollapse collapse" id="trigger-light">
+						<h4>If the room is...</h4>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="lightType" value="brighterThan" id="lightTypeBrighterThan" required>
+							<label for="lightTypeBrighterThan">
+								Brighter than...
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="lightType" value="darkerThan" id="lightTypeDarkerThan" required>
+							<label for="lightTypeDarkerThan">
+								Darker than...
+							</label>
+						</div>
+						<input id="SliderFrom" class="form-control custom-range border-0" type="range" name="lightThreshold" min="0" max="100" step="10">
+						<p id="SliderTo">50%</p>
+					</div>
+
+					<div class="myCollapse collapse" id="trigger-datetime">
+						Datetime settings
+					</div>
+
+					<div class="myCollapse collapse" id="trigger-force">
+						Force settings
+					</div>
+
+					<div class="myCollapse collapse" id="trigger-humidity">
+						Humidity settings
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- END New Trigger Tab -->
+
+		<!-- START Control Panel Tab -->
+		<div class="tab-pane fade" id="ControlPanel" role="tabpanel">
+
+		</div>
+		<!-- END Control Panel Tab -->
 	</div>
 
-	<div id="panel" class="panel">
-
-
-	</div>
-
-	<script type="text/javascript" src="cordova.js"></script>
+	<!-- <script type="text/javascript" src="cordova.js"></script> -->
 	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/socket.io.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
