@@ -55,7 +55,7 @@
 		<div class="navbar-collapse collapse" id="NavDropdown">
 			<ul class="nav navbar-nav mr-auto" id="myTab" role="tablist">
 				<li class="nav-item" data-toggle="collapse" data-target="#NavDropdown">
-					<a class="nav-link active" id="NewTriggerTab" data-toggle="tab" href="#NewTrigger" role="tab">New Trigger</a>
+					<a class="nav-link active" id="NewRuleTab" data-toggle="tab" href="#NewRule" role="tab">New Rule</a>
 				</li>
 				<li class="nav-item" data-toggle="collapse" data-target="#NavDropdown">
 					<a class="nav-link" id="ControlPanelTab" data-toggle="tab" href="#ControlPanel" role="tab">Control Panel</a>
@@ -65,14 +65,14 @@
 	</nav>
 
 	<div class="tab-content" id="tabPrincipal">
-		<!-- START New Trigger Tab -->
-		<div class="tab-pane fade show active row w-100" id="NewTrigger" role="tabpanel">
-			<h1 class="col-12 text-center mt-2">New trigger</h1>
-			<form id="NewTriggerForm" action="/NewTrigger" method="POST" class="needs-validation col-10 mx-auto my-3">
-				<label for="TriggerType">
+		<!-- START New Rule Tab -->
+		<div class="tab-pane fade show active row w-100" id="NewRule" role="tabpanel">
+			<h1 class="col-12 text-center mt-2">New rule</h1>
+			<form id="NewRuleForm" class="col-10 mx-auto my-3">
+				<label for="TriggerTypeSelector">
 					<h2>Trigger Type</h2>
 				</label>
-				<select name="TriggerType" class="form-control" id="TriggerType">
+				<select class="form-control" id="TriggerTypeSelector">
 					<option value="" style="display: none" disabled selected>Please choose...</option>
 					<option value="accelerometer">Accelerometer</option>
 					<option value="temperature">Temperature</option>
@@ -82,71 +82,47 @@
 					<option value="force" disabled>Force</option>
 					<option value="humidity" disabled>Humidity</option>
 				</select>
-				<div class="tab-content mt-3">
+				<div class="tab-content mt-3 w-100">
 					<div class="myCollapse collapse" id="trigger-accelerometer">
 						<h4>If the device is...</h4>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" name="accelerometerType" value="swipe" id="accelerometerTypeSwipe" required>
-							<label for="accelerometerTypeSwipe">
-								Swiped
-							</label>
+							<label><input class="form-check-input" type="radio" name="trigger_type" value="1">Swiped</label>
 						</div>
-						<div class="form-check disabled">
-							<input class="form-check-input" type="radio" name="accelerometerType" value="shake" id="accelerometerTypeShake" required disabled>
-							<label for="accelerometerTypeShake">
-								Shaked
-							</label>
+						<div class="form-check">
+							<label><input class="form-check-input" type="radio" name="trigger_type" value="2">Shaken</label>
 						</div>
 					</div>
 
 					<div class="myCollapse collapse" id="trigger-temperature">
 						<h4>If the temperature goes...</h4>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" name="temperatureType" value="above" id="temperatureTypeAbove" required>
-							<label for="temperatureTypeAbove">
-								Above
-							</label>
+							<label><input class="form-check-input" type="radio" name="trigger_type" value="3">Above</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" name="temperatureType" value="below" id="temperatureTypeBelow" required>
-							<label for="temperatureTypeBelow">
-								Below
-							</label>
+							<label><input class="form-check-input" type="radio" name="trigger_type" value="4">Below</label>
 						</div>
-						<input class="form-control" type="number" name="temperatureThreshold">
+						<input class="form-control" type="number" name="trigger_data_temp" placeholder="0">
 					</div>
 
 					<div class="myCollapse collapse" id="trigger-button">
 						<h4>If the button is...</h4>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" name="buttonType" value="swipe" id="buttonTypePress" required>
-							<label for="buttonTypePress">
-								Pressed
-							</label>
+							<label><input class="form-check-input" type="radio" name="trigger_type" value="5">Pressed</label>
 						</div>
 						<div class="form-check disabled">
-							<input class="form-check-input" type="radio" name="buttonType" value="shake" id="buttonTypeHold" required>
-							<label for="buttonTypeHold">
-								Held (1sec)
-							</label>
+							<label><input class="form-check-input" type="radio" name="trigger_type" value="6">Held (1 sec)</label>
 						</div>
 					</div>
 
 					<div class="myCollapse collapse" id="trigger-light">
 						<h4>If the room is...</h4>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" name="lightType" value="brighterThan" id="lightTypeBrighterThan" required>
-							<label for="lightTypeBrighterThan">
-								Brighter than...
-							</label>
+							<label><input class="form-check-input" type="radio" name="trigger_type" value="7">Brighter than...</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="radio" name="lightType" value="darkerThan" id="lightTypeDarkerThan" required>
-							<label for="lightTypeDarkerThan">
-								Darker than...
-							</label>
+							<label><input class="form-check-input" type="radio" name="trigger_type" value="8">Darker than...</label>
 						</div>
-						<input id="SliderFrom" class="form-control custom-range border-0" type="range" name="lightThreshold" min="0" max="100" step="10">
+						<input id="SliderFrom" class="form-control custom-range border-0" type="range" name="trigger_data_light" min="0" max="100" step="10" placeholder="0">
 						<p id="SliderTo">50%</p>
 					</div>
 
@@ -162,9 +138,10 @@
 						Humidity settings
 					</div>
 				</div>
+				<input type="submit" value="Create rule">
 			</form>
 		</div>
-		<!-- END New Trigger Tab -->
+		<!-- END New Rule Tab -->
 
 		<!-- START Control Panel Tab -->
 		<div class="tab-pane fade" id="ControlPanel" role="tabpanel">
@@ -174,8 +151,8 @@
 	</div>
 
 	<!-- <script type="text/javascript" src="cordova.js"></script> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js" integrity="sha256-i2Orhi397HWPn93rsCUTW8HBoso65vY/VNTllm9Kuqo=" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="js/index.js"></script>
-	<script type="text/javascript" src="js/socket.io.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>

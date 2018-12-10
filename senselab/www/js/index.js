@@ -17,7 +17,7 @@
 * under the License.
 */
 
-$('#TriggerType').change(function ()
+$('#TriggerTypeSelector').change(function ()
 {
 	var selector = '#trigger-' + $(this).val();
 
@@ -33,7 +33,54 @@ $('#SliderFrom').on('input', function ()
 
 $(document).ready(function ()
 {
+	var socket = io.connect('http://localhost:8080');
+	$('#NewRuleForm').submit(function ()
+	{
+		var unindexed_array = $('#NewRuleForm').serializeArray();
+		var values = {};
+		$.map(unindexed_array, function (n, i)
+		{
+			values[n['name']] = n['value'];
+		});
+		ruleData = {
+			'trigger_type_id': undefined,
+			'trigger_data_int': undefined,
+			'trigger_data_datetime': undefined,
+			'action_type_id': undefined,
+			'action_data_text': undefined
+		};
+		ruleData.trigger_type_id = values['trigger_type'];
+		switch (ruleData.trigger_type_id)
+		{
+			case '3':
+			case '4':
+				ruleData.trigger_data_int = values['trigger_data_temp'];
+				break;
+			case '7':
+			case '8':
+				ruleData.trigger_data_int = values['trigger_data_light'];
+				break;
+			case '11':
+			case '12':
+				ruleData.trigger_data_int = values['trigger_data_strength'];
+				break;
+			case '13':
+			case '14':
+				ruleData.trigger_data_int = values['trigger_data_humidity'];
+				break;
+			default:
+				ruleData.trigger_data_int = undefined;
+				break;
+		}
+		ruleData.trigger_data_datetime = values['trigger_data_datetime'];
+		ruleData.action_type_id = values['action_type_id'];
+		ruleData.action_data_text = values['action_data_text'];
+
+		console.log(ruleData);
+
+		socket.emit('new_rule', JSON.stringify(ruleData));
+
+		return false;
+	});
 });
-
-
 
