@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<!-- StackOverFlow -->
+	<!-- <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'" /> -->
+
+	<!-- Profesor -->
+	<!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;"> -->
+	<meta name="format-detection" content="telephone=no">
+	<meta name="msapplication-tap-highlight" content="no">
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+	<!-- <link rel="stylesheet" type="text/css" href="css/index.css"> -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<title>SenseLab</title>
+</head>
+
+<body>
+	<nav class="navbar navbar-dark bg-dark navbar-expand-sm">
+		<a class="navbar-brand" href="index.html">SenseLab</a>
+
+		<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#NavDropdown">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="navbar-collapse collapse" id="NavDropdown">
+			<ul class="nav navbar-nav mr-auto" id="myTab" role="tablist">
+				<li class="nav-item" data-toggle="collapse" data-target="#NavDropdown">
+					<a class="nav-link active" id="NewRuleTab" data-toggle="tab" href="#NewRule" role="tab">New Rule</a>
+				</li>
+				<li class="nav-item" data-toggle="collapse" data-target="#NavDropdown">
+					<a class="nav-link" id="ControlPanelTab" data-toggle="tab" href="#ControlPanel" role="tab" onclick="return getRuleList()">Control Panel</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="tab-content" id="tabPrincipal">
+		<!-- START New Rule Tab -->
+		<div class="tab-pane fade show active row w-100" id="NewRule" role="tabpanel">
+			<h1 class="col-12 text-center mt-2">New rule</h1>
+			<form id="NewRuleForm" class="col-10 mx-auto my-3">
+				<label for="ruleName">Rule name</label>
+				<input class="form-control" type="text" placeholder="My first rule" id="ruleName" name="rule_name">
+				<br>
+				<h2>Trigger Type</h2>
+				<select class="form-control" id="TriggerTypeSelector">
+					<option value="" style="display: none" disabled selected>Please choose...</option>
+					<option value="accelerometer">Accelerometer</option>
+					<option value="temperature">Temperature</option>
+					<option value="button">Button</option>
+					<option value="light">Light sensor</option>
+					<option value="datetime">Date/Time</option>
+					<option value="force" disabled>Force</option>
+					<option value="humidity" disabled>Humidity</option>
+				</select>
+				<div class="tab-content mt-3 w-100">
+
+					<div class="myCollapseTriggers collapse" id="trigger-accelerometer">
+						<h4>If the device is...</h4>
+						<div class="form-check">
+							<label><input class="form-check-input" type="radio" name="trigger_type" value="1">Swiped</label>
+						</div>
+						<div class="form-check">
+							<label><input class="form-check-input" type="radio" name="trigger_type" value="2">Shaken</label>
+						</div>
+					</div>
+
+					<div class="myCollapseTriggers collapse" id="trigger-temperature">
+						<h4>If the temperature goes...</h4>
+						<div class="form-check">
+							<label><input class="form-check-input" type="radio" name="trigger_type" value="3">Above</label>
+						</div>
+						<div class="form-check">
+							<label><input class="form-check-input" type="radio" name="trigger_type" value="4">Below</label>
+						</div>
+						<input class="form-control" type="number" name="trigger_data_temp" value="20">
+					</div>
+
+					<div class="myCollapseTriggers collapse" id="trigger-button">
+						<h4>If the button is...</h4>
+						<div class="form-check">
+							<label><input class="form-check-input" type="radio" name="trigger_type" value="5">Pressed</label>
+						</div>
+						<div class="form-check disabled">
+							<label><input class="form-check-input" type="radio" name="trigger_type" value="6">Held (1 sec)</label>
+						</div>
+					</div>
+
+					<div class="myCollapseTriggers collapse" id="trigger-light">
+						<h4>If the room is...</h4>
+						<div class="form-check">
+							<label><input class="form-check-input" type="radio" name="trigger_type" value="7">Brighter than...</label>
+						</div>
+						<div class="form-check">
+							<label><input class="form-check-input" type="radio" name="trigger_type" value="8">Darker than...</label>
+						</div>
+						<input id="SliderFrom" class="form-control custom-range border-0" type="range" name="trigger_data_light" min="0" max="100" step="10">
+						<p id="SliderTo">50%</p>
+					</div>
+
+					<div class="myCollapseTriggers collapse" id="trigger-datetime">
+						<h4>Activate this trigger...</h4>
+						<div class="form-check">
+							<label><input class="form-check-input" type="radio" name="trigger_type" value="9">Daily at...</label>
+						</div>
+						<div class="form-check">
+							<label><input class="form-check-input" type="radio" name="trigger_type" value="10">Once at...</label>
+						</div>
+						<input class="form-control" type="time" name="trigger_data_time">
+					</div>
+
+					<div class="myCollapseTriggers collapse" id="trigger-force">
+						Force settings
+					</div>
+
+					<div class="myCollapseTriggers collapse" id="trigger-humidity">
+						Humidity settings
+					</div>
+
+				</div>
+				<hr>
+				<h2>Action Type</h2>
+				<select class="form-control" id="ActionTypeSelector">
+					<option value="" style="display: none" disabled selected>Please choose...</option>
+					<option value="gmail">Gmail</option>
+					<option value="led">LED</option>
+					<option value="buzzer">Buzzer</option>
+					<option value="gdrive" disabled>Gdrive</option>
+					<option value="twitter" disabled>Twitter</option>
+					<option value="gsheets" disabled>Gsheets</option>
+				</select>
+				<div class="tab-content mt-3 w-100">
+
+					<div class="myCollapseActions collapse" id="action-gmail">
+						<h4>Send email to...</h4>
+						<input class="form-control" type="email" placeholder="email@domain" name="action_data_text">
+						<br>
+						<button class="btn btn-primary" onclick="return mySubmit('1')">Create rule</button>
+					</div>
+
+					<div class="myCollapseActions collapse" id="action-led">
+						<h4>Choose LED action</h4>
+						<div class="form-check">
+							<label><input class="form-check-input" type="radio" name="action_type" value="2">Turn LED on</label>
+						</div>
+						<div class="form-check">
+							<label><input class="form-check-input" type="radio" name="action_type" value="3">Turn LED off</label>
+						</div>
+						<div class="form-check">
+							<label><input class="form-check-input" type="radio" name="action_type" value="4">Change LED color</label>
+						</div>
+						<button class="btn btn-primary" onclick="return mySubmit('234')">Create rule</button>
+					</div>
+
+					<div class="myCollapseActions collapse" id="action-buzzer">
+						<h4>Buzzer will activate for 2 seconds</h4>
+						<button class="btn btn-primary" onclick="return mySubmit('5')">Create rule</button>
+					</div>
+
+					<div class="myCollapseActions collapse" id="action-gdrive">
+						<p>Work in progress...</p>
+					</div>
+
+					<div class="myCollapseActions collapse" id="action-twitter">
+						<p>Work in progress...</p>
+					</div>
+
+					<div class="myCollapseActions collapse" id="action-gsheets">
+						<p>Work in progress...</p>
+					</div>
+
+				</div>
+			</form>
+		</div>
+		<!-- END New Rule Tab -->
+
+		<!-- START Control Panel Tab -->
+		<div class="tab-pane fade row w-100" id="ControlPanel" role="tabpanel">
+			<div class="col-10 mx-auto my-3" id="CardArea">
+			</div>
+		</div>
+		<!-- END Control Panel Tab -->
+	</div>
+
+	<!-- <script type="text/javascript" src="cordova.js"></script> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js" integrity="sha256-i2Orhi397HWPn93rsCUTW8HBoso65vY/VNTllm9Kuqo=" crossorigin="anonymous"></script>
+	<script src="js/index.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+
+</html>

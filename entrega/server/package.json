@@ -1,0 +1,27 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Server SenseLab",
+  "main": "app.js",
+  "dependencies": {
+    "ble-bean": "^2.1.1",
+    "express": "^4.16.4",
+    "lodash": "^4.17.11",
+    "mysql": "^2.16.0",
+    "socket.io": "^2.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Napster653/SenseLab.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Napster653/SenseLab/issues"
+  },
+  "homepage": "https://github.com/Napster653/SenseLab#readme"
+}
