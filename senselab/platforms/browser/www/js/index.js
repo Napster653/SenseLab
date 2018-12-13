@@ -61,7 +61,7 @@ function mySubmit (strAction)
 		'action_data_text': undefined
 	};
 
-	ruleData.rule_name = values['rule_name'];
+	ruleData.rule_name = values['rule_name'] || undefined;
 	ruleData.trigger_type_id = values['trigger_type'];
 	switch (ruleData.trigger_type_id)
 	{
@@ -125,6 +125,46 @@ function getRuleList ()
 	return false;
 }
 
+function turnOff (rule_id)
+{
+	socket.emit('rule_turn_off', rule_id);
+	name = '#rule_id_' + rule_id;
+	$(name).empty();
+	toggle_buttons = [
+		'<div class="btn-group btn-group-toggle" id="rule_id_' + rule_id + '" data-toggle="buttons">',
+		'<label class="btn btn-secondary">',
+		'<input type="radio" name="options" id="option1" autocomplete="off" onfocus="return turnOn(' + rule_id + ');">On',
+		'</label>',
+		'<label class="btn btn-danger active">',
+		'<input type="radio" name="options" id="option2" autocomplete="off" onfocus="" checked>Off',
+		'</label>',
+		'</div>'
+	];
+	toggle_buttons = toggle_buttons.join('');
+	$(name).append(toggle_buttons);
+	return false;
+}
+
+function turnOn (rule_id)
+{
+	socket.emit('rule_turn_on', rule_id);
+	name = '#rule_id_' + rule_id;
+	$(name).empty();
+	toggle_buttons = [
+		'<div class="btn-group btn-group-toggle" id="rule_id_' + rule_id + '" data-toggle="buttons">',
+		'<label class="btn btn-success active">',
+		'<input type="radio" name="options" id="option1" autocomplete="off" onfocus="" checked>On',
+		'</label>',
+		'<label class="btn btn-secondary">',
+		'<input type="radio" name="options" id="option2" autocomplete="off" onfocus="return turnOff(' + rule_id + ');">Off',
+		'</label>',
+		'</div>'
+	];
+	toggle_buttons = toggle_buttons.join('');
+	$(name).append(toggle_buttons);
+	return false;
+}
+
 function createCard (cardData)
 {
 	var trigger_desc_full;
@@ -157,6 +197,36 @@ function createCard (cardData)
 			action_desc_full = cardData.action_description_long;
 			break;
 	}
+	var toggle_buttons;
+	if (cardData.active)
+	{
+		toggle_buttons = [
+			'<div class="btn-group btn-group-toggle" id="rule_id_' + cardData.rule_id + '" data-toggle="buttons">',
+			'<label class="btn btn-success active">',
+			'<input type="radio" name="options" id="option1" autocomplete="off" onfocus="" checked>On',
+			'</label>',
+			'<label class="btn btn-secondary">',
+			'<input type="radio" name="options" id="option2" autocomplete="off" onfocus="return turnOff(' + cardData.rule_id + ');">Off',
+			'</label>',
+			'</div>'
+		];
+		toggle_buttons = toggle_buttons.join('');
+	}
+	else
+	{
+		toggle_buttons = [
+			'<div class="btn-group btn-group-toggle" id="rule_id_' + cardData.rule_id + '" data-toggle="buttons">',
+			'<label class="btn btn-secondary">',
+			'<input type="radio" name="options" id="option1" autocomplete="off" onfocus="return turnOn(' + cardData.rule_id + ');">On',
+			'</label>',
+			'<label class="btn btn-danger active">',
+			'<input type="radio" name="options" id="option2" autocomplete="off" onfocus="" checked>Off',
+			'</label>',
+			'</div>'
+		];
+		toggle_buttons = toggle_buttons.join('');
+	}
+	console.log(toggle_buttons);
 	var cardTemplate = [
 		'<div class="card mb-3">',
 		'<div class="card-body">',
@@ -169,6 +239,11 @@ function createCard (cardData)
 		'<p class="card-title">',
 		action_desc_full,
 		'</p>',
+		'</div>',
+		'<div class="card-footer">',
+		'<form>',
+		toggle_buttons,
+		'</form>',
 		'</div>',
 		'</div>'
 	];
